@@ -2,14 +2,35 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 
 export const App = () => {
+  // 2- todoText=変数名, setTodoText=関数を更新する
+  const [todoText, setTodoText] = useState(" ");
   const [incompleteTodos, setIncompleteTodos] = useState(["aaa", "bbb"]);
-  const [completeTodos, setCompleteTodos] = useState(["aaa", "bbb"]);
+  const [completeTodos, setCompleteTodos] = useState(["ccc"]);
+
+  // 2- 入力値によるtodoText変数の変化を反映する関数を定義
+  const onChangeTodoText = (event) => setTodoText(event.target.value);
+  // 2- when click add button
+  const onClickAdd = () => {
+    // 2- do nothing if the input is blank
+    if (todoText === "") return;
+    // 2- define new array for values to be appended orderly ([...])
+    const newTodos = [...incompleteTodos, todoText];
+    setIncompleteTodos(newTodos);
+    // 2- Undo the input
+    setTodoText("");
+  };
 
   return (
     <>
       <div className="input-area">
-        <input placeholder="Type things ..." />
-        <button>Add</button>
+        {/* 2- inputに対してStateで持っているtodoText変数,
+         onChangeTodoText変数を設定 */}
+        <input
+          placeholder="Type things ..."
+          value={todoText}
+          onChange={onChangeTodoText}
+        />
+        <button onClick={onClickAdd}>Add</button>
       </div>
 
       <div className="incomplete-area">
