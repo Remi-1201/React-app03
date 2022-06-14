@@ -9,7 +9,7 @@ export const App = () => {
 
   // 2- 入力値によるtodoText変数の変化を反映する関数を定義
   const onChangeTodoText = (event) => setTodoText(event.target.value);
-  // 2- when click add button
+  // 2- when clicking "Add" button
   const onClickAdd = () => {
     // 2- do nothing if the input is blank
     if (todoText === "") return;
@@ -18,6 +18,14 @@ export const App = () => {
     setIncompleteTodos(newTodos);
     // 2- Undo the input
     setTodoText("");
+  };
+
+  // 3- when clicking "Delete" button
+  const onClickDelete = (index) => {
+    const newTodos = [...incompleteTodos];
+    // 3- indexから1の要素を削除
+    newTodos.splice(index, 1);
+    setIncompleteTodos(newTodos);
   };
 
   return (
@@ -38,13 +46,13 @@ export const App = () => {
         <ul>
           {/* 1- rendering const incompleteTodos
            - (todo)= useStateの引数 */}
-          {incompleteTodos.map((todo) => {
+          {incompleteTodos.map((todo, index) => {
             return (
               // 1- need to set [key={todo}]
               <div key={todo} className="list-row">
                 <li>{todo}</li>
                 <button>Finished</button>
-                <button>Delete</button>
+                <button onClick={() => onClickDelete(index)}>Delete</button>
               </div>
             );
           })}
