@@ -4,20 +4,20 @@ import "./styles.css";
 export const App = () => {
   return (
     <>
-      <div>
+      <div className="input-area">
         <input placeholder="Type things ..." />
         <button>Add</button>
       </div>
 
-      <div>
-        <p>Unfinished</p>
+      <div className="incomplete-area">
+        <p className="title">Unfinished</p>
         <ul>
-          <div>
+          <div className="list-row">
             <li>aaa</li>
             <button>Finished</button>
             <button>Delete</button>
           </div>
-          <div>
+          <div className="list-row">
             <li>bbb</li>
             <button>Finished</button>
             <button>Delete</button>
@@ -25,14 +25,14 @@ export const App = () => {
         </ul>
       </div>
 
-      <div>
-        <p>Finished</p>
+      <div className="complete-area">
+        <p className="title">Finished</p>
         <ul>
-          <div>
+          <div className="list-row">
             <li>ccc</li>
             <button>Move back</button>
           </div>
-          <div>
+          <div className="list-row">
             <li>ddd</li>
             <button>Move back</button>
           </div>
