@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 
 export const App = () => {
+  const [incompleteTodos, setIncompleteTodos] = useState(["aaa", "bbb"]);
+  const [completeTodos, setCompleteTodos] = useState(["aaa", "bbb"]);
+
   return (
     <>
       <div className="input-area">
@@ -12,30 +15,34 @@ export const App = () => {
       <div className="incomplete-area">
         <p className="title">Unfinished</p>
         <ul>
-          <div className="list-row">
-            <li>aaa</li>
-            <button>Finished</button>
-            <button>Delete</button>
-          </div>
-          <div className="list-row">
-            <li>bbb</li>
-            <button>Finished</button>
-            <button>Delete</button>
-          </div>
+          {/* 1- rendering const incompleteTodos
+           - (todo)= useStateの引数 */}
+          {incompleteTodos.map((todo) => {
+            return (
+              // 1- need to set [key={todo}]
+              <div key={todo} className="list-row">
+                <li>{todo}</li>
+                <button>Finished</button>
+                <button>Delete</button>
+              </div>
+            );
+          })}
         </ul>
       </div>
 
       <div className="complete-area">
         <p className="title">Finished</p>
         <ul>
-          <div className="list-row">
-            <li>ccc</li>
-            <button>Move back</button>
-          </div>
-          <div className="list-row">
-            <li>ddd</li>
-            <button>Move back</button>
-          </div>
+          {/* 1- rendering const completeTodos */}
+          {completeTodos.map((todo) => {
+            return (
+              // 1- need to set [key={todo}]
+              <div key={todo} className="list-row">
+                <li>{todo}</li>
+                <button>Move back</button>
+              </div>
+            );
+          })}
         </ul>
       </div>
     </>
