@@ -22,10 +22,24 @@ export const App = () => {
 
   // 3- when clicking "Delete" button
   const onClickDelete = (index) => {
+    // 3- incompleteTodosからの要素をcopy
     const newTodos = [...incompleteTodos];
     // 3- indexから1の要素を削除
     newTodos.splice(index, 1);
     setIncompleteTodos(newTodos);
+  };
+
+  // 4- when clicking "Finished" button
+  const onClickComplete = (index) => {
+    // 4- incompleteTodosからの要素をcopy
+    const newIncompleTodos = [...incompleteTodos];
+    // 4- indexから1の要素を処理
+    newIncompleTodos.splice(index, 1);
+    // 4- create new Finished list
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    // 4- change
+    setIncompleteTodos(newIncompleTodos);
+    setCompleteTodos(newCompleteTodos);
   };
 
   return (
@@ -51,7 +65,7 @@ export const App = () => {
               // 1- need to set [key={todo}]
               <div key={todo} className="list-row">
                 <li>{todo}</li>
-                <button>Finished</button>
+                <button onClick={() => onClickComplete(index)}>Finished</button>
                 <button onClick={() => onClickDelete(index)}>Delete</button>
               </div>
             );
