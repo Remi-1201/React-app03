@@ -4,8 +4,8 @@ import "./styles.css";
 export const App = () => {
   // 2- todoText=変数名, setTodoText=関数を更新する
   const [todoText, setTodoText] = useState(" ");
-  const [incompleteTodos, setIncompleteTodos] = useState(["aaa", "bbb"]);
-  const [completeTodos, setCompleteTodos] = useState(["ccc"]);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
+  const [completeTodos, setCompleteTodos] = useState([]);
 
   // 2- 入力値によるtodoText変数の変化を反映する関数を定義
   const onChangeTodoText = (event) => setTodoText(event.target.value);
@@ -26,6 +26,7 @@ export const App = () => {
     const newTodos = [...incompleteTodos];
     // 3- indexから1の要素を削除
     newTodos.splice(index, 1);
+    // 3- Update useState
     setIncompleteTodos(newTodos);
   };
 
@@ -37,9 +38,22 @@ export const App = () => {
     newIncompleTodos.splice(index, 1);
     // 4- create new Finished list
     const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
-    // 4- change
+    // 4- Update useState
     setIncompleteTodos(newIncompleTodos);
     setCompleteTodos(newCompleteTodos);
+  };
+
+  // 5- When clicking "Back" button
+  const onClickBack = (index) => {
+    // 5- completeTodosからの要素をcopy
+    const newCompleteTodos = [...completeTodos];
+    // 5- indexから1の要素を処理
+    newCompleteTodos.splice(index, 1);
+    // 5- Add to "Unfinished" list
+    const newIncompleTodos = [...incompleteTodos, completeTodos[index]];
+    // 5- Update useState
+    setCompleteTodos(newCompleteTodos);
+    setIncompleteTodos(newIncompleTodos);
   };
 
   return (
@@ -77,12 +91,12 @@ export const App = () => {
         <p className="title">Finished</p>
         <ul>
           {/* 1- rendering const completeTodos */}
-          {completeTodos.map((todo) => {
+          {completeTodos.map((todo, index) => {
             return (
               // 1- need to set [key={todo}]
               <div key={todo} className="list-row">
                 <li>{todo}</li>
-                <button>Move back</button>
+                <button onClick={() => onClickBack(index)}>Back</button>
               </div>
             );
           })}
