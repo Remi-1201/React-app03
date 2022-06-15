@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./styles.css";
+// 6- add InputTodo component
+import { InputTodo } from "./components/InputTodo";
+import { IncompleteTodos } from "./components/IncompleteTodos";
+import { CompleteTodos } from "./components/CompleteTodos";
 
 export const App = () => {
   // 2- todoText=変数名, setTodoText=関数を更新する
@@ -58,50 +62,22 @@ export const App = () => {
 
   return (
     <>
-      <div className="input-area">
-        {/* 2- inputに対してStateで持っているtodoText変数,
-         onChangeTodoText変数を設定 */}
-        <input
-          placeholder="Type things ..."
-          value={todoText}
-          onChange={onChangeTodoText}
-        />
-        <button onClick={onClickAdd}>Add</button>
-      </div>
+      {/* 6- add InputTodo component -
+      - todoText = InputTodo's value
+      - todoText, onChange, onClick = props */}
+      <InputTodo
+        todoText={todoText}
+        onChange={onChangeTodoText}
+        onClick={onClickAdd}
+      />
 
-      <div className="incomplete-area">
-        <p className="title">Unfinished</p>
-        <ul>
-          {/* 1- rendering const incompleteTodos
-           - (todo)= useStateの引数 */}
-          {incompleteTodos.map((todo, index) => {
-            return (
-              // 1- need to set [key={todo}]
-              <div key={todo} className="list-row">
-                <li>{todo}</li>
-                <button onClick={() => onClickComplete(index)}>Finished</button>
-                <button onClick={() => onClickDelete(index)}>Delete</button>
-              </div>
-            );
-          })}
-        </ul>
-      </div>
+      <IncompleteTodos
+        todos={incompleteTodos}
+        onClickComplete={onClickComplete}
+        onClickDelete={onClickDelete}
+      />
 
-      <div className="complete-area">
-        <p className="title">Finished</p>
-        <ul>
-          {/* 1- rendering const completeTodos */}
-          {completeTodos.map((todo, index) => {
-            return (
-              // 1- need to set [key={todo}]
-              <div key={todo} className="list-row">
-                <li>{todo}</li>
-                <button onClick={() => onClickBack(index)}>Back</button>
-              </div>
-            );
-          })}
-        </ul>
-      </div>
+      <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
     </>
   );
 };
