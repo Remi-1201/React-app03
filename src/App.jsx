@@ -65,11 +65,18 @@ export const App = () => {
       {/* 6- add InputTodo component -
       - todoText = InputTodo's value
       - todoText, onChange, onClick = props */}
+      {/* 8- add disabled */}
       <InputTodo
         todoText={todoText}
         onChange={onChangeTodoText}
         onClick={onClickAdd}
+        disabled={incompleteTodos.length >= 5}
       />
+
+      {/* 8- Message appears when there're more than 5 todos tobe added */}
+      {incompleteTodos.length >= 5 && (
+        <p style={{ color: "red" }}>You can't add more than 5 todos</p>
+      )}
 
       <IncompleteTodos
         todos={incompleteTodos}
